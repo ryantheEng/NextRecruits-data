@@ -127,3 +127,5 @@ class UploadJsonFileToFirestore:
 
 uploadjson = UploadJsonFileToFirestore()
 uploadjson.upload()      
+
+# firebase_admin_services.py <name-of-json> add <name-of-db>
