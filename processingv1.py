@@ -13,6 +13,13 @@ DIR = 'Director'
 OPS = 'Operations'
 DEV = 'Developer'
 ASS = 'Assistant'
+COMM = 'Commerce'
+MKT = 'Marketing'
+ACC = 'Account'
+EX = 'Executive'
+TICK = 'Ticket'
+COOR = 'Coordinator'
+GAN = 'Game'
 
 LISTROLES = [
     ['AHC',AHC],
@@ -25,7 +32,15 @@ LISTROLES = [
     ['DIR',DIR],
     ['OPS',OPS],
     ['DEV',DEV],
-    ['ASS',ASS]
+    ['ASS',ASS],
+    ['COMM',COMM],
+    ['MKT',MKT],
+    ['ACCT',ACC],
+    ['ACC',ACC],
+    ['EX',EX],
+    ['TICK',TICK],
+    ['COOR',COOR],
+    ['GAN',GAN]
 ]
 
 # class to process the data from the database
@@ -61,17 +76,27 @@ class Processing():
 
     def roleWordReplaceHelper(self,roll):
         """function to help filter and rewrite the roles"""
-        words = roll.split(' ')
-        for word in words: # eg VP
-            newRole = ' '
+        words = roll.split(' ') #dir of comm
+        print(words)
+        newRole = ''
+        for i,word in enumerate(words): # eg VP
+            replaceFlag = False
             for r in LISTROLES:
-                replaceFlag = False
-                if word == r[0] or word.capitalize() == r[0]:
-                    newRole += r[1] + ' '
+                if word == r[0] or word.upper() == r[0]:
+                    if (i < len(words)-1):
+                        newRole = newRole + r[1] + ' '
+                    else:
+                        newRole = newRole + r[1]
                     replaceFlag = True
                     break
-            if not replaceFlag:
-                newRole += word
+                elif word == ' ':
+                    break
+            if replaceFlag == False:
+                if (i < len(words)-1):
+                    newRole = newRole + word + ' '
+                else:
+                    newRole = newRole + word
+        print(newRole)
         return newRole
 
     def filter(self,df,league_name):
